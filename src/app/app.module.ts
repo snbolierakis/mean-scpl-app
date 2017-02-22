@@ -7,11 +7,18 @@ import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { RouterModule } from '@angular/router';
 import { PostsService } from './posts.service';
+import { PublicDealsComponent } from './public-deals/public-deals.component';
+import { PrivateDealsComponent } from './private-deals/private-deals.component';
 
 // Define the routes
 const ROUTES = [
+{
+  path: ' ',
+  redirectTo: '/',
+  pathMatch: 'full'
+},
   {
-    path: '',
+    path: 'p',
     redirectTo: 'posts',
     pathMatch: 'full'
   },
@@ -25,7 +32,9 @@ const ROUTES = [
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    PostsComponent,
+    PublicDealsComponent,
+    PrivateDealsComponent
   ],
   imports: [
     BrowserModule,
