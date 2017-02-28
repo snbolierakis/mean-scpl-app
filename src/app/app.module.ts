@@ -9,13 +9,15 @@ import { RouterModule } from '@angular/router';
 import { PostsService } from './posts.service';
 import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { PrivateDealsComponent } from './private-deals/private-deals.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { AlertService, AuthenticationService } from './services/index';
 
 // Define the routes
 const ROUTES = [
 {
-  path: ' ',
-  redirectTo: '/',
-  pathMatch: 'full'
+  path: '',
+  component: HomeComponent
 },
   {
     path: 'p',
@@ -25,6 +27,11 @@ const ROUTES = [
   {
     path: 'posts',
     component: PostsComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
   }
 ];
 
@@ -34,7 +41,9 @@ const ROUTES = [
     AppComponent,
     PostsComponent,
     PublicDealsComponent,
-    PrivateDealsComponent
+    PrivateDealsComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +51,11 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
-  providers: [PostsService],
+  providers: [
+    AlertService,
+    AuthenticationService,
+    PostsService
+  ],
   bootstrap: [AppComponent]
 
 })
