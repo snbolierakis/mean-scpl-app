@@ -16,22 +16,27 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-      <li><a href="#">Deals</a></li>
-      <li><a href="#">Private Deals</a></li>
+      <li><a href="/posts">Posts</a></li>
+      <li><a href="/private-deals">Private Deals</a></li>
+      <li><a href="/maps-view">Map</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/login" routerLinkActive="active" *ngIf="userIsLogged() == false">Login</a></li>
-        <li class="dropdown" *ngIf="userIsLogged() == true">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+        <li><a routerLink="/login" routerLinkActive="active" *ngIf="!userIsLogged()">Login</a></li>
+        <li class="dropdown" *ngIf="userIsLogged()">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{getUserName()}}<span class="caret" ></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
+            <li><a href="#">Profile</a></li>
             <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+
+              <li role="separator" class="divider" *ngIf="userIsLogged() && userIsAdmin()"></li>
+              <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Register User</a></li>
+              <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Delete User</a></li>
+              <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Edit User</a></li>
+
           </ul>
         </li>
+        <li><a routerLink="/logout" routerLinkActive="active" *ngIf="userIsLogged()" (click)="logout()">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

@@ -11,20 +11,41 @@ import { AuthenticationService } from './services/index';
 })
 export class AppComponent {
   title = 'app works!';
-  currentUser: {};
-
+  currentUser: any={};
+  profile: any={};
   constructor(
         private router: Router,
         private authenticationService: AuthenticationService) { }
 
     ngOnInit() {
         // reset login status
-        this.authenticationService.logout();
+        //this.authenticationService.logout();
     }
     userIsLogged(){
-        this.currentUser = localStorage.getItem('currentUser');
-        console.log(this.currentUser);
-        return this.currentUser != null;
+      this.currentUser = this.authenticationService.loggedIn();
+      return this.currentUser != null;
+    }
+
+    getUserName(){
+        if(this.currentUser == null){
+            return "";
+        }
+        else {
+
+        //  console.log(this.currentUser.user);
+
+          return this.currentUser.user.profile.firstName;
+        }
+    }
+
+    userIsAdmin(){
+        if(this.currentUser != null){
+          return this.currentUser.user.role == 'Admin';
+        }
+        return false;
+    }
+    logout(){
+      this.authenticationService.logout();
     }
 
 }

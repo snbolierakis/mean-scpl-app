@@ -1,3 +1,6 @@
-<p>
+<p >
   private-deals works!
 </p>
+
+<button class="btn btn-primary" (click)="getDeals()">Deals</button>
+<div *ngFor="let deal of deals" > {{deal}} </div>

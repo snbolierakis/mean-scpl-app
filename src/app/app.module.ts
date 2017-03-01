@@ -11,7 +11,8 @@ import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { PrivateDealsComponent } from './private-deals/private-deals.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AlertService, AuthenticationService } from './services/index';
+import { AlertService, AuthenticationService, AuthGuard, DealsService} from './services/index';
+import { MapViewComponent } from './map-view/map-view.component';
 
 // Define the routes
 const ROUTES = [
@@ -32,6 +33,21 @@ const ROUTES = [
     path: 'login',
     component: LoginComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'logout',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  {
+    path: 'private-deals',
+    component: PrivateDealsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'maps-view',
+    component: MapViewComponent,
+    pathMatch: 'full'
   }
 ];
 
@@ -43,7 +59,8 @@ const ROUTES = [
     PublicDealsComponent,
     PrivateDealsComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    MapViewComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +71,9 @@ const ROUTES = [
   providers: [
     AlertService,
     AuthenticationService,
-    PostsService
+    PostsService,
+    AuthGuard,
+    DealsService
   ],
   bootstrap: [AppComponent]
 

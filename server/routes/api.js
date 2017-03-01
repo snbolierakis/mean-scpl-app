@@ -5,7 +5,8 @@ const router = express.Router();
 const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
 
-const jwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
+
 
 /* GET api listing. */
 router.get('/', (req, res) => {

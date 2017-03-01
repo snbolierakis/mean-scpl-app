@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { DealsService, AuthenticationService } from '../services/index';
+
+
 
 @Component({
   selector: 'app-private-deals',
@@ -6,10 +11,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./private-deals.component.css']
 })
 export class PrivateDealsComponent implements OnInit {
-
-  constructor() { }
+  deals: any;
+  constructor(private dealsService: DealsService) { }
 
   ngOnInit() {
-  }
 
+
+  }
+  getDeals(){
+  this.dealsService.getDeals();
+  this.deals = this.dealsService.data;
+  console.log(this.deals);
+return this.deals;
+  }
 }

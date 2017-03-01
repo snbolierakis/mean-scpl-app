@@ -16,8 +16,8 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     //console.log(user.userinfo);
-                    console.log(JSON.stringify(user.info));
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    console.log(JSON.stringify(user.userInfo));
+                    localStorage.setItem('currentUser', JSON.stringify({token: user.token, user: user.userInfo, error: user.error}));
 
                 }
             });
@@ -26,5 +26,10 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+    }
+
+    loggedIn(){
+        return JSON.parse(localStorage.getItem('currentUser'));
+    
     }
 }
