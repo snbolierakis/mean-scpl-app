@@ -11,8 +11,10 @@ import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { PrivateDealsComponent } from './private-deals/private-deals.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AlertService, AuthenticationService, AuthGuard, DealsService} from './services/index';
+import { AlertService, AuthenticationService, AuthGuard, DealsService, UserService} from './services/index';
 import { MapViewComponent } from './map-view/map-view.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
+import { AlertComponent } from './alert/alert.component';
 
 // Define the routes
 const ROUTES = [
@@ -48,6 +50,11 @@ const ROUTES = [
     path: 'maps-view',
     component: MapViewComponent,
     pathMatch: 'full'
+  },
+  {
+   path: 'register',
+   component: RegisterUserComponent,
+   canActivate: [AuthGuard]
   }
 ];
 
@@ -60,7 +67,9 @@ const ROUTES = [
     PrivateDealsComponent,
     LoginComponent,
     HomeComponent,
-    MapViewComponent
+    MapViewComponent,
+    RegisterUserComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +82,8 @@ const ROUTES = [
     AuthenticationService,
     PostsService,
     AuthGuard,
-    DealsService
+    DealsService,
+    UserService
   ],
   bootstrap: [AppComponent]
 

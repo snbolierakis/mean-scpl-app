@@ -4,11 +4,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthenticationService } from '../services/index';
 
+
 @Component({
     moduleId: module.id,
     selector: 'app-login',
     templateUrl: 'login.component.html',
     styleUrls: ['./login.component.css']
+
 })
 
 export class LoginComponent implements OnInit {
@@ -36,9 +38,12 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate(['posts']);
+                    this.alertService.success("Successful login!");
                 },
                 error => {
-
+                    let res = error.json();
+                    console.log(res.message);
+                    this.alertService.error(res.message);
                     this.loading = false;
                 });
     }

@@ -159,6 +159,20 @@ app.get('/api/private',auth,(req,res)=>{
   res.json(deals);
 });
 
+app.get('/api/features',(req,res)=>{
+  //console.log(req.body);
+  let features = {
+    "type": "FeatureCollection",
+    "features": [
+      { "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": [23.678112, 37.965956]},
+        "properties": {"prop0": "value0"}
+      }]
+    };
+  res.json(features);
+});
+
+
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

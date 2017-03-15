@@ -5,37 +5,48 @@ declare var ol: any;
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
-  styleUrls: ['./map-view.component.css']
+  styleUrls: ['./map-view.component.less']
 })
 export class MapViewComponent implements OnInit {
 
 ol: any;
   ngOnInit(): void {
-    var map = new ol.Map({
-          controls: ol.control.defaults({
-        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-          collapsible: false
-        })
-          }).extend([
-        new ol.control.ZoomToExtent({
-          extent: [
-            813079.7791264898, 5929220.284081122,
-            848966.9639063801, 5936863.986909639
-          ]
-        })
-          ]),
-          layers: [
+
+  var map = new ol.Map({
+      target: 'map',
+      controls: ol.control.defaults({
+          zoom: true,
+          attribution: false,
+          rotate: false
+        }),
+      layers: [
         new ol.layer.Tile({
+          title: 'Global Imagery',
           source: new ol.source.OSM()
-        })
-          ],
-          target: 'map',
-          view: new ol.View({
-            projection: 'EPSG:900913',
-        center: [18.0, 55.4],
-        zoom: 7
+        }),
+        new ol.layer.Vector({
+            title: 'Earthquakes',
+            source: new ol.source.Vector({
+              url: '/api/features',
+              format: new ol.format.GeoJSON()
+            }),
+            style: new ol.style.Style({
+              image: new ol.style.Icon({
+                src:'../assets/pointer.svg',
+                scale:0.02
+              })
+            })
           })
+      ],
+      view: new ol.View({
+
+        center: ol.proj.fromLonLat([23.678112, 37.965956]),
+        zoom: 16,
+      minZoom: 16,
+      maxZoom: 18
+      })
     });
 
-  }
+
+    }
 }

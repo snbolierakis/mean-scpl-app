@@ -1,0 +1,27 @@
+var map = new ol.Map({
+          controls: ol.control.defaults({
+        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+          collapsible: false
+        }),zoom: true,
+        rotate: true
+          }).extend([
+        new ol.control.ZoomToExtent({
+          extent: [
+            23.6692, 37.9569,
+            23.6859, 37.9710,
+          ]
+        })
+          ])
+        ,
+          layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+          ],
+          target: 'map',
+          view: new ol.View({
+            projection: 'EPSG:4326',
+        center: [23.67, 37.96],
+        zoom: 15
+          })
+    });

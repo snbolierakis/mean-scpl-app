@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+<div class="full-page">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -18,38 +18,37 @@
       <ul class="nav navbar-nav">
       <li><a href="/posts">Posts</a></li>
       <li><a href="/private-deals">Private Deals</a></li>
-      <li><a href="/maps-view">Map</a></li>
+      <li><a href="/maps-view"><span class="glyphicon glyphicon-globe"> </span>  Map</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="/login" routerLinkActive="active" *ngIf="!userIsLogged()">Login</a></li>
+        <li><a routerLink="/login" routerLinkActive="active" *ngIf="!userIsLogged()"><span class="glyphicon glyphicon-log-in"> </span>  Login</a></li>
         <li class="dropdown" *ngIf="userIsLogged()">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{getUserName()}}<span class="caret" ></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="glyphicon glyphicon-user"> </span>  {{getUserName()}}<span class="caret" ></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Profile</a></li>
             <li><a href="#">Another action</a></li>
 
               <li role="separator" class="divider" *ngIf="userIsLogged() && userIsAdmin()"></li>
-              <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Register User</a></li>
+              <li><a href="/register" *ngIf="userIsLogged() && userIsAdmin()">Register User</a></li>
               <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Delete User</a></li>
               <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Edit User</a></li>
 
           </ul>
         </li>
-        <li><a routerLink="/logout" routerLinkActive="active" *ngIf="userIsLogged()" (click)="logout()">Logout</a></li>
+        <li><a routerLink="/logout" routerLinkActive="active" *ngIf="userIsLogged()" (click)="logout()"><span class="glyphicon glyphicon-log-out"> </span>  Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-</div>
-<div class="col-sm-12">
+
 
 
   <!-- The router-outlet directive will display the component based on the route we are on, more on this soon -->
   <router-outlet></router-outlet>
+
+
 </div>
-
-
 
 
 <!--
