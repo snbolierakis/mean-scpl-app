@@ -38,13 +38,14 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate(['posts']);
-                    this.alertService.success("Successful login!");
+                    this.alertService.success("Successful login!", true);
                 },
                 error => {
-                    let res = error.json();
-                    console.log(res.message);
-                    this.alertService.error(res.message);
-                    this.loading = false;
+                      let res = error.json();
+                      //console.log(res.message);
+                      this.alertService.error(res.message);
+                      this.loading = false;
+
                 });
     }
 }

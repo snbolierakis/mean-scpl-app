@@ -17,6 +17,7 @@ const mongoose = require('mongoose');
 const User = require('./server/database/db');
 const API = 'http://localhost:3000/api/deals';
 
+
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 var db = mongoose.connection;
@@ -84,7 +85,7 @@ function auth(req, res, next) {
 app.post('/api/authenticate',(req, res) =>{
   //console.log(req.body);
   User.findOne({email: req.body.username},function (err, user) {
-    console.log(user);
+    //console.log(user);
     if (err) return console.error(err);
     if (user){
       user.comparePassword(req.body.password,function(err, isMatch){
@@ -103,11 +104,28 @@ app.post('/api/authenticate',(req, res) =>{
 
     }
   else{
-        res.status(404).send({error: true, message: "User not found check values again"});
+        res.status(404).send({error: true, message: "Email or password is incorrect.Please check values again"});
   }
   });
 
 });
+
+app.post('/api/users',auth,(req, res) =>{
+  //console.log(req.body);
+    console.log("skata");
+    console.log(req.body);
+
+    User.create(req.body, function(err, usr) {
+      if (err) return res.status(404).send({error: true, message: "Email already used. Please choose a new one"});
+        res.status(200).send({error:false});
+});
+
+
+      });
+
+
+
+
 
 //app.use(auth);
 app.get('/api/private',auth,(req,res)=>{
