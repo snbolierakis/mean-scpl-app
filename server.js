@@ -37,6 +37,12 @@ app.use(morgan('dev'));
 app.use(cors());
 
 
+/**
+ * Create HTTP server.
+ */
+const server = http.Server(app);
+var io = require('socket.io')(server);
+var nsp = io.of('/my-namespace');
 /*User.find(function (err, users) {
   if (err) return console.error(err);
   console.log(users.length);
@@ -81,13 +87,19 @@ function auth(req, res, next) {
   }
 }
 
-
+var check = 0;
 app.post('/api/authenticate',(req, res) =>{
-  //console.log(req.body);
+console.log(req.body);
   User.findOne({email: req.body.username},function (err, user) {
     //console.log(user);
     if (err) return console.error(err);
     if (user){
+      check++;
+        nsp.emit('hi', 'Hello everyone! ' + check);
+    /*  nsp.on('connection', function(socket){
+      console.log('someone connected');
+      socket.emit('hi', 'Hello everyone!');
+});*/
       user.comparePassword(req.body.password,function(err, isMatch){
         if(isMatch){
           var token = jwt.sign(user, app.get('superSecret'), {
@@ -123,7 +135,19 @@ app.post('/api/users',auth,(req, res) =>{
 
       });
 
+app.get('/api/users',auth,(req, res) =>{
+        //console.log(req.body);
+          console.log("skata");
+          console.log(req.body);
 
+          User.find({} , function(err, usr) {
+            if (err) return res.status(404).send({error: true, message: "Cannot connect to database"});
+              console.log(usr);
+              res.status(200).send(usr);
+      });
+
+
+            });
 
 
 
@@ -204,10 +228,7 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-const server = http.createServer(app);
+
 
 /**
  * Listen on provided port, on all network interfaces.

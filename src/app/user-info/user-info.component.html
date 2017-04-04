@@ -1,0 +1,31 @@
+
+
+<div class="panel panel-default">
+           <div class="panel-heading">
+             <a href="#" class="pull-right" (click)="enableVisibility()"> View Info </a>
+             <span class="pull-right separator">|</span>
+             <a href="#" class="pull-right pull-middle"> Delete </a>
+
+              <div><img src="../assets/user.jpg" class="img-circle pull-left image" > {{user.profile.firstName}} {{user.profile.lastName}}</div>
+
+            </div>
+   			    <div class="panel-body" *ngIf="isEnabled">
+
+              <div class="clearfix"></div>
+              <ul class="list-group" >
+                <li class="list-group-item">
+                  <label>ID : </label>{{user._id}}
+                </li>
+                <li class="list-group-item">
+                  <label>Times Logged : </label>Second item
+                </li>
+                <li class="list-group-item">
+                  <label>LastLogged : </label>Third item
+                </li>
+              </ul>
+              <hr>
+              <a href="#" class="card-link" >Delete</a>
+              <span class="separator">|</span>
+              <a href="#" class="card-link" (click)="enableVisibility()">Close</a>
+            </div>
+         </div>

@@ -1,0 +1,15 @@
+.image{
+  min-height: 80%;
+  width: 40px;
+  margin-right: 6px;
+  margin-left: 0px;
+}
+.separator{
+  margin-left: 3px;
+  margin-right: 3px;
+
+}
+
+.panel-heading{
+  vertical-align: middle;
+}

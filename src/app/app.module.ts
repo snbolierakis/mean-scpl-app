@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
@@ -11,10 +12,12 @@ import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { PrivateDealsComponent } from './private-deals/private-deals.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AlertService, AuthenticationService, AuthGuard, DealsService, UserService} from './services/index';
+import { AlertService, AuthenticationService, AuthGuardService, DealsService, UserService} from './services/index';
 import { MapViewComponent } from './map-view/map-view.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { AlertComponent } from './alert/alert.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 // Define the routes
 const ROUTES = [
@@ -44,7 +47,7 @@ const ROUTES = [
   {
     path: 'private-deals',
     component: PrivateDealsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuardService]
   },
   {
     path: 'maps-view',
@@ -54,7 +57,12 @@ const ROUTES = [
   {
    path: 'register',
    component: RegisterUserComponent,
-   canActivate: [AuthGuard]
+   canActivate: [AuthGuardService]
+  },
+  {
+  path: 'delete',
+  component: DeleteUserComponent,
+  canActivate: [AuthGuardService]
   }
 ];
 
@@ -69,9 +77,12 @@ const ROUTES = [
     HomeComponent,
     MapViewComponent,
     RegisterUserComponent,
-    AlertComponent
+    AlertComponent,
+    DeleteUserComponent,
+    UserInfoComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -81,7 +92,7 @@ const ROUTES = [
     AlertService,
     AuthenticationService,
     PostsService,
-    AuthGuard,
+    AuthGuardService,
     DealsService,
     UserService
   ],

@@ -31,7 +31,7 @@
 
               <li role="separator" class="divider" *ngIf="userIsLogged() && userIsAdmin()"></li>
               <li><a href="/register" *ngIf="userIsLogged() && userIsAdmin()">Register User</a></li>
-              <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Delete User</a></li>
+              <li><a href="/delete" *ngIf="userIsLogged() && userIsAdmin()">Delete User</a></li>
               <li><a href="#" *ngIf="userIsLogged() && userIsAdmin()">Edit User</a></li>
 
           </ul>

@@ -1,0 +1,11 @@
+<div class="container">
+  <div [@flyInOut]="state">
+    <alert (notify)='onNotify($event)' ></alert>
+  </div>
+  <h2 class="text-center">Users</h2>
+  <div class="row" *ngFor="let user of users">
+
+        <user-info [user] = "user"></user-info>
+
+  </div>
+</div>

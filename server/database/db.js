@@ -17,7 +17,9 @@ const UserSchema = new Schema({
   },
   profile: {
     firstName: { type: String },
-    lastName: { type: String }
+    lastName: { type: String },
+    timesLogged: {type: Number,default: 0},
+    lastLogged: {type: Date}
   },
   role: {
     type: String,
@@ -26,6 +28,7 @@ const UserSchema = new Schema({
   },
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date }
+
 },
 {
   timestamps: true
