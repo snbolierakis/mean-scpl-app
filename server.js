@@ -87,19 +87,12 @@ function auth(req, res, next) {
   }
 }
 
-var check = 0;
 app.post('/api/authenticate',(req, res) =>{
-console.log(req.body);
+  console.log(req.body);
   User.findOne({email: req.body.username},function (err, user) {
     //console.log(user);
     if (err) return console.error(err);
     if (user){
-      check++;
-
-      user.profile.timesLogged ++;
-      user.profile.lastLogged = new Date();
-      user.save();
-      nsp.emit('hi', user.profile.firstName + " " + user.profile.lastName + " logged in.");
 
     /*  nsp.on('connection', function(socket){
       console.log('someone connected');
@@ -108,20 +101,25 @@ console.log(req.body);
       user.comparePassword(req.body.password,function(err, isMatch){
         if(isMatch){
           var token = jwt.sign(user, app.get('superSecret'), {
-          expiresIn: '24h' // expires in 24 hours
-        });
+            expiresIn: '24h' // expires in 24 hours
+            });
+          user.profile.timesLogged ++;
+          user.profile.lastLogged = new Date();
+          user.save();
+          nsp.emit('hi', user.profile.firstName + " " + user.profile.lastName + " logged in.");
+
           var userinfo = setUserInfo(user);
           res.status(200).send({
             token: token,
             userInfo: userinfo,
             error: false
-          });
+            });
         }
         else{
-
+          res.status(404).send({error: true, message: "Password is incorrect.Please check values again"});
         }
       });
-      res.status(404).send({error: true, message: "Password is incorrect.Please check values again"});
+
     }
   else{
         res.status(404).send({error: true, message: "Email is incorrect.Please check values again"});
