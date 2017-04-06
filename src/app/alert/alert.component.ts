@@ -10,7 +10,7 @@ import { AlertService } from '../services/index';
 
 export class AlertComponent {
     message: any;
-    @Output() notify: EventEmitter<string> = new EventEmitter<string>();
+    //@Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
     constructor(private alertService: AlertService) { }
 
@@ -19,11 +19,10 @@ export class AlertComponent {
     }
 
     close(){
-    // Mallon kalutera na kleinei apu8eias
-     this.notify.emit('in');
-     //let timeoutId = setTimeout(() => {
-      this.message = null;
-     //}, 7999);
+
+     //this.notify.emit('in');
+     this.message = null;
+
 
     }
 }

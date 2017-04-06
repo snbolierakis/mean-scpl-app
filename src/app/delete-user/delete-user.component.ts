@@ -7,11 +7,11 @@ import {
   transition
 } from '@angular/animations';
 import { AfterViewInit, ViewChild } from '@angular/core';
-import { AlertComponent } from '../alert/alert.component';
+import { LoggerComponent } from '../logger/logger.component';
 
 import { Router } from '@angular/router';
 import { User } from '../models/index';
-import { AlertService, UserService } from '../services/index';
+import { UserlogService, UserService } from '../services/index';
 import * as io from 'socket.io-client';
 
 
@@ -33,27 +33,31 @@ import * as io from 'socket.io-client';
 ]
 })
 export class DeleteUserComponent implements OnInit {
-@ViewChild(AlertComponent)
-private alert: AlertComponent;
-model : User = new User("","",{firstName: "", lastName:""});
-loading = false;
+@ViewChild(LoggerComponent)
+private logger: LoggerComponent;
 logs: any = [];
-numUsers = "mpla";
 state = 'in';
-finished = true;
-
-hasError = false;
-roles = ['Member', 'Client', 'Owner', 'Admin'];
+currUser : any = null;
 users: any = [];
+socket = io('/my-namespace');
+
 constructor(
     private router: Router,
     private userService: UserService,
-    private alertService: AlertService) { }
+    private userlogService: UserlogService) { }
 
 ngOnInit(){
   this.reqLoop();
   this.addMessage();
 }
+ngOnDestroy(){
+  this.socket.off('hi');
+}
+handleUserUpdated(user){
+  this.currUser = user;
+  //console.log(this.currUser);
+}
+
 reqLoop(){
 this.userService.getAll()
   .subscribe(
@@ -68,19 +72,18 @@ this.userService.getAll()
 }
 
 addMessage(){
-var socket = io('/my-namespace');
-   socket.on('hi',function(data){
-       this.numUsers = "skara";
-       this.logs.push(data);
 
+   this.socket.on('hi',function(data){
+       this.logs.push(data);
+       this.reqLoop();
        setTimeout(() => {
-        this.alertService.success(data, true);
+        this.userlogService.success(data, true);
         this.state = 'active';
         setTimeout(() => {
 
            this.state = "in";
            setTimeout(() => {
-             this.alert.close();
+             this.logger.close();
              this.logs.pop(data);
            },500);
 
@@ -91,36 +94,6 @@ var socket = io('/my-namespace');
 
 
    }.bind(this));
-}
-
-register() {
-    console.log("In registeruser");
-    console.log(this.model);
-    this.loading = true;
-    this.userService.create(this.model)
-        .subscribe(
-            data => {
-                // set success message and pass true paramater to persist the message after redirecting to the login page
-                this.alertService.success('Registration successful', true);
-                this.router.navigate(['']);
-            },
-            error => {
-
-                  let res = error.json();
-                  console.log(error);
-                  this.alertService.error(res.message);
-                  this.loading = false;
-                  this.hasError = true;
-
-            });
-}
-
-onNotify(state:string):void {
-    this.state = state;
-  }
-
-removeError(){
-  this.hasError = false;
 }
 
 }

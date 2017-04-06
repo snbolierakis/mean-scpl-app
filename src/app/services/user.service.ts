@@ -31,8 +31,8 @@ export class UserService {
         return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
     }
 
-    delete(id: number) {
-        return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+    delete(userid: String) {
+        return this.http.delete('/api/users/' + userid, this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods

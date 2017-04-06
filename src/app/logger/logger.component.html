@@ -1,0 +1,4 @@
+<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error'}">
+{{message.text}}
+<a href="#" class="card-link pull-right" (click)="close(); false">Close</a>
+</div>

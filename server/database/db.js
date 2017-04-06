@@ -19,7 +19,10 @@ const UserSchema = new Schema({
     firstName: { type: String },
     lastName: { type: String },
     timesLogged: {type: Number,default: 0},
-    lastLogged: {type: Date}
+    lastLogged: {type: Date},
+    poisCreated: {type: Number,default: 0},
+    campaignsCreated: {type: Number,default: 0}
+
   },
   role: {
     type: String,

@@ -5,7 +5,9 @@ constructor(
   public password: string ,
   public profile:{
     firstName: string ,
-    lastName: string
+    lastName: string,
+    lastLogged?: Date,
+    timesLogged?: Number
   },
   public role?: string,
   public resetPasswordToken?: string,

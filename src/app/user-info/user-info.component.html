@@ -4,27 +4,41 @@
            <div class="panel-heading">
              <a href="#" class="pull-right" (click)="enableVisibility()"> View Info </a>
              <span class="pull-right separator">|</span>
-             <a href="#" class="pull-right pull-middle"> Delete </a>
+             <a href="#" class="pull-right pull-middle" (click)="deleteUser()"> Delete </a>
 
               <div><img src="../assets/user.jpg" class="img-circle pull-left image" > {{user.profile.firstName}} {{user.profile.lastName}}</div>
 
             </div>
-   			    <div class="panel-body" *ngIf="isEnabled">
+   			    <div class="panel-body" *ngIf="checkVisibility()">
 
-              <div class="clearfix"></div>
-              <ul class="list-group" >
+
+            <div class="row">
+              <ul class="list-group col-md-6" >
                 <li class="list-group-item">
-                  <label>ID : </label>{{user._id}}
+                  <label>ID : </label>   {{user._id}}
                 </li>
                 <li class="list-group-item">
-                  <label>Times Logged : </label>Second item
+                  <label>Times Logged : </label>   {{user.profile.timesLogged}}
                 </li>
                 <li class="list-group-item">
-                  <label>LastLogged : </label>Third item
+                  <label>Last Logged : </label>   {{user.profile.lastLogged | date: 'dd/MM/yyyy'}}
                 </li>
               </ul>
+              <ul class="list-group col-md-6" >
+                <li class="list-group-item">
+                  <label>POIs created : </label>   {{user.profile.campaignsCreated}}
+                </li>
+                <li class="list-group-item">
+                  <label>Campaigns created : </label>   {{user.profile.poisCreated}}
+                </li>
+                <li class="list-group-item">
+                  <label>Account created : </label>   {{user.createdAt | date: 'dd/MM/yyyy'}}
+                </li>
+
+              </ul>
+            </div>
               <hr>
-              <a href="#" class="card-link" >Delete</a>
+              <a href="#" class="card-link" (click)="deleteUser()">Delete</a>
               <span class="separator">|</span>
               <a href="#" class="card-link" (click)="enableVisibility()">Close</a>
             </div>

@@ -12,12 +12,13 @@ import { PublicDealsComponent } from './public-deals/public-deals.component';
 import { PrivateDealsComponent } from './private-deals/private-deals.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AlertService, AuthenticationService, AuthGuardService, DealsService, UserService} from './services/index';
+import { AlertService, AuthenticationService, AuthGuardService, DealsService, UserService, UserlogService} from './services/index';
 import { MapViewComponent } from './map-view/map-view.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { AlertComponent } from './alert/alert.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { LoggerComponent } from './logger/logger.component';
 
 // Define the routes
 const ROUTES = [
@@ -79,7 +80,8 @@ const ROUTES = [
     RegisterUserComponent,
     AlertComponent,
     DeleteUserComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    LoggerComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -94,7 +96,8 @@ const ROUTES = [
     PostsService,
     AuthGuardService,
     DealsService,
-    UserService
+    UserService,
+    UserlogService
   ],
   bootstrap: [AppComponent]
 

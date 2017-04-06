@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class AlertService {
+export class UserlogService {
+
+
     private subject = new Subject<any>();
     private keepAfterNavigationChange = false;
 
@@ -43,5 +45,6 @@ export class AlertService {
 
 
     }
+
 
 }

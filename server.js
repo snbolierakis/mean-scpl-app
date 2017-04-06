@@ -95,7 +95,12 @@ console.log(req.body);
     if (err) return console.error(err);
     if (user){
       check++;
-        nsp.emit('hi', 'Hello everyone! ' + check);
+
+      user.profile.timesLogged ++;
+      user.profile.lastLogged = new Date();
+      user.save();
+      nsp.emit('hi', user.profile.firstName + " " + user.profile.lastName + " logged in.");
+
     /*  nsp.on('connection', function(socket){
       console.log('someone connected');
       socket.emit('hi', 'Hello everyone!');
@@ -112,11 +117,14 @@ console.log(req.body);
             error: false
           });
         }
-      });
+        else{
 
+        }
+      });
+      res.status(404).send({error: true, message: "Password is incorrect.Please check values again"});
     }
   else{
-        res.status(404).send({error: true, message: "Email or password is incorrect.Please check values again"});
+        res.status(404).send({error: true, message: "Email is incorrect.Please check values again"});
   }
   });
 
@@ -124,31 +132,50 @@ console.log(req.body);
 
 app.post('/api/users',auth,(req, res) =>{
   //console.log(req.body);
-    console.log("skata");
-    console.log(req.body);
+    //console.log("skata");
+    //console.log(req.body);
 
     User.create(req.body, function(err, usr) {
       if (err) return res.status(404).send({error: true, message: "Email already used. Please choose a new one"});
+        nsp.emit('hi',"User " + req.decoded._doc.profile.firstName + " " + req.decoded._doc.profile.lastName +
+         " CREATED user : " + usr.profile.firstName + " " + usr.profile.lastName);
         res.status(200).send({error:false});
 });
 
 
       });
 
-app.get('/api/users',auth,(req, res) =>{
+app.delete('/api/users/:userid',auth,(req, res) =>{
         //console.log(req.body);
-          console.log("skata");
-          console.log(req.body);
+          //console.log("skata");
+          //console.log(req.body);
+          //console.log(req.decoded);
+          console.log(req.params.userid);
 
-          User.find({} , function(err, usr) {
-            if (err) return res.status(404).send({error: true, message: "Cannot connect to database"});
-              console.log(usr);
-              res.status(200).send(usr);
+          User.remove({_id: req.params.userid} , function(err) {
+            if (err) return res.status(404).send({error: true, message: "Could not delete user."});
+              //console.log(usr);
+              nsp.emit('hi',"User " + req.decoded._doc.profile.firstName + " " + req.decoded._doc.profile.lastName +
+               " DELETED user with id: " + req.params.userid);
+              res.status(200).send({error:false});
       });
 
 
             });
 
+app.get('/api/users',auth,(req, res) =>{
+
+          console.log(req.decoded);
+          console.log(req.decoded._doc.profile.lastName);
+
+          User.find({} , function(err, usr) {
+            if (err) return res.status(404).send({error: true, message: "Cannot connect to database"});
+              //console.log(usr);
+              res.status(200).send(usr);
+      });
+
+
+            });
 
 
 //app.use(auth);
