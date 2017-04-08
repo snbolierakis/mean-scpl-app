@@ -11,9 +11,10 @@ import { AlertService, UserService } from '../services/index';
 })
 
 export class RegisterUserComponent {
-    model : User = new User("","",{firstName: "", lastName:""});
+    model : User = new User("","",{firstName: "", lastName:""},"Member");
     loading = false;
     hasError = false;
+
     roles = ['Member', 'Client', 'Owner', 'Admin'];
     constructor(
         private router: Router,
@@ -21,8 +22,7 @@ export class RegisterUserComponent {
         private alertService: AlertService) { }
 
     register() {
-        console.log("In registeruser");
-        console.log(this.model);
+
         this.loading = true;
         this.userService.create(this.model)
             .subscribe(
@@ -34,7 +34,6 @@ export class RegisterUserComponent {
                 error => {
 
                       let res = error.json();
-                      console.log(error);
                       this.alertService.error(res.message);
                       this.loading = false;
                       this.hasError = true;

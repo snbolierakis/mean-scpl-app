@@ -93,12 +93,7 @@ app.post('/api/authenticate',(req, res) =>{
     //console.log(user);
     if (err) return console.error(err);
     if (user){
-
-    /*  nsp.on('connection', function(socket){
-      console.log('someone connected');
-      socket.emit('hi', 'Hello everyone!');
-});*/
-      user.comparePassword(req.body.password,function(err, isMatch){
+        user.comparePassword(req.body.password,function(err, isMatch){
         if(isMatch){
           var token = jwt.sign(user, app.get('superSecret'), {
             expiresIn: '24h' // expires in 24 hours
@@ -144,10 +139,7 @@ app.post('/api/users',auth,(req, res) =>{
       });
 
 app.delete('/api/users/:userid',auth,(req, res) =>{
-        //console.log(req.body);
-          //console.log("skata");
-          //console.log(req.body);
-          //console.log(req.decoded);
+
           console.log(req.params.userid);
 
           User.remove({_id: req.params.userid} , function(err) {

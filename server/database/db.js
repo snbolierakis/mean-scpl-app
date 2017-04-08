@@ -21,8 +21,12 @@ const UserSchema = new Schema({
     timesLogged: {type: Number,default: 0},
     lastLogged: {type: Date},
     poisCreated: {type: Number,default: 0},
-    campaignsCreated: {type: Number,default: 0}
-
+    campaignsCreated: {type: Number,default: 0},
+    language: {
+      type: String,
+      enum: ['Eng', 'Gr', 'Rom'],
+      default: 'Eng'
+    }
   },
   role: {
     type: String,

@@ -19,6 +19,7 @@ import { AlertComponent } from './alert/alert.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { LoggerComponent } from './logger/logger.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 // Define the routes
 const ROUTES = [
@@ -64,6 +65,11 @@ const ROUTES = [
   path: 'delete',
   component: DeleteUserComponent,
   canActivate: [AuthGuardService]
+  },
+  {
+  path: 'edit',
+  component: UserEditComponent,
+  canActivate: [AuthGuardService]
   }
 ];
 
@@ -81,7 +87,8 @@ const ROUTES = [
     AlertComponent,
     DeleteUserComponent,
     UserInfoComponent,
-    LoggerComponent
+    LoggerComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserAnimationsModule,

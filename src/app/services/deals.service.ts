@@ -32,10 +32,10 @@ err => this.logError(err),
 () => console.log('Secret Quote Complete')
 );
 
-return this.data;
+
 }
 
-    logError(err) {
+logError(err) {
   console.error('There was an error: ' + err);
 }
 }

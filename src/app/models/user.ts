@@ -7,7 +7,10 @@ constructor(
     firstName: string ,
     lastName: string,
     lastLogged?: Date,
-    timesLogged?: Number
+    timesLogged?: Number,
+    poisCreated?:  Number,
+    campaignsCreated?: Number,
+    language?: string
   },
   public role?: string,
   public resetPasswordToken?: string,

@@ -1,0 +1,56 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2 class="text-center">Profile</h2>
+    <alert></alert>
+    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.profile.firstName" #firstName="ngModel" required />
+            <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+            <span *ngIf="f.submitted && !firstName.valid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.profile.lastName" #lastName="ngModel" required />
+            <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+            <span *ngIf="f.submitted && !lastName.valid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !email.valid || hasError  }">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel"  (click)="removeError()" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+            <div *ngIf="f.submitted && !email.valid" >
+              <div *ngIf="email.errors.required" class="help-block">Email is required</div>
+              <div *ngIf="email.errors.pattern" class="help-block">Email is invalid</div>
+            </div>
+            <span *ngIf="f.submitted && !email.valid || hasError" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="language">Language</label>
+            <select id="lang" class="form-control selectpicker"
+                    name="lang"
+                    [(ngModel)]="model.profile.language" required
+                    #lang="ngModel" >
+              <option *ngFor="let l of language" [value]="l" data-icon="">{{l}}</option>
+            </select>
+
+            <div *ngIf="(lang.errors && lang.touched) || (f.submitted && lang.errors)" class="help-block">Language is required
+            </div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error':(role.errors && role.touched)|| (f.submitted && role.errors)}" >
+          <label for="role">User Role</label>
+          <select id="role" class="form-control"
+                  name="role"
+                  [(ngModel)]="model.role" required
+                  #role="ngModel" >
+            <option *ngFor="let r of roles" [value]="r">{{r}}</option>
+          </select>
+
+          <div *ngIf="(role.errors && role.touched) || (f.submitted && role.errors)" class="help-block">Role is required
+          </div>
+      </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Register</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a [routerLink]="['']" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>
